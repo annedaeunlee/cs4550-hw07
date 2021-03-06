@@ -1,0 +1,32 @@
+<!-- Some parts of code below were taken from Professor Nat Tuck's scratch repository -->
+
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :date %>
+    <%= datetime_select f, :date, class: "form-control flatpickr-datetime" %>
+    <%= error_tag f, :date %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :name %>
+    <%= text_input f, :name, class: "form-control" %>
+    <%= error_tag f, :name %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :description %>
+    <%= text_input f, :description, class: "form-control" %>
+    <%= error_tag f, :description %>
+  </div>
+
+  <div style="padding-bottom:30px">
+    <span style="margin-right:10px"> <%= submit "Save", class: "btn btn-primary" %> </span>
+    <span> <%= link "Cancel", to: "/", class: "btn btn-secondary" %> </span>
+  </div>
+<% end %>

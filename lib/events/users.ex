@@ -1,3 +1,5 @@
+# Some parts of code below were taken from Professor Nat Tuck's scratch repository 
+
 defmodule Events.Users do
   @moduledoc """
   The Users context.
@@ -39,10 +41,18 @@ defmodule Events.Users do
   def get_user_by_name(name) do
     Repo.get_by(User, name: name)
   end
+
+  def get_user_by_email(email) do
+    Repo.get_by(User, email: email)
+  end
   
   def get_user!(id), do: Repo.get!(User, id)
 
   def get_user(id), do: Repo.get(User, id)
+
+  def get_posts_by_user(id) do
+    Repo.get_by(Post, user: Repo.get(User, id))
+  end
 
 
   @doc """

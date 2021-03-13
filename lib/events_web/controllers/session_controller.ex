@@ -1,4 +1,5 @@
 # Some of the code below was taken from Professor Nat Tuck's scratch Repository
+
 defmodule EventsWeb.SessionController do
     use EventsWeb, :controller
 

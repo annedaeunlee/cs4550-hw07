@@ -1,6 +1,14 @@
-<h1>Show User</h1>
+<!-- Some parts of code below were taken from Professor Nat Tuck's scratch repository -->
+
+<h1>Show User #<%= @user.id %></h1>
 
 <ul>
+
+  <li>
+    <div>
+      <img src="<%= Routes.user_path(@conn, :photo, @user) %>" alt="">
+    </div>
+  <li>
 
   <li>
     <strong>Name:</strong>

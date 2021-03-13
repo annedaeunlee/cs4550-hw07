@@ -1,3 +1,5 @@
+# Few lines of code below were taken from Professor Nat Tuck's scratch repository 
+
 defmodule EventsWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
@@ -23,6 +25,7 @@ defmodule EventsWeb do
 
       import Plug.Conn
       import EventsWeb.Gettext
+      import EventsWeb.Helpers
       alias EventsWeb.Router.Helpers, as: Routes
     end
   end
@@ -68,6 +71,7 @@ defmodule EventsWeb do
 
       import EventsWeb.ErrorHelpers
       import EventsWeb.Gettext
+      import EventsWeb.Helpers
       alias EventsWeb.Router.Helpers, as: Routes
     end
   end

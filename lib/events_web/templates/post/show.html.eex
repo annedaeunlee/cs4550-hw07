@@ -1,4 +1,8 @@
-<h1>Show Post</h1>
+<!-- Some parts of code below were taken from Professor Nat Tuck's scratch repository -->
+
+<%= if have_current_user?(@conn) do %>
+
+<h1>Show Event</h1>
 
 <ul>
 
@@ -18,6 +22,56 @@
   </li>
 
 </ul>
+
+<h2>Invitees:</h2>
+  <table style="width:80%">
+    <thead>
+      <tr>
+        <th>Photo</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Response</th>
+        <th>Comments</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+
+  <%= for invite <- @invites do %>
+      <tr>
+        <td><div><img src="<%= Routes.user_path(@conn, :photo, invite.user) %>" alt="" style="height: 50px"></div></td>
+        <td><%= invite.user.name%>
+        <td><%= invite.user.email%>
+        <td><%= invite.response %></td>
+        <td><%= invite.comment %></td>
+        <td>
+          <%= if current_user_id?(@conn, invite.user_id) do %>
+            <span><%= link "Edit", to: Routes.invite_path(@conn, :edit, invite) %></span>
+            <span><%= link "Remove Comment", to: Routes.invite_path(@conn, :delete, invite), method: :delete, data: [confirm: "Are you sure?"] %></span>
+          <% end %>
+          <%= if current_user_id?(@conn, @post.user_id) do %>
+            <span><%= link "Remove Comment", to: Routes.invite_path(@conn, :delete, invite), method: :delete, data: [confirm: "Are you sure?"] %></span>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+
+    </tbody>
+  </table>
+
+  <%= if current_user_id?(@conn, @post.user_id) do %>
+      <%= form_for @conn, Routes.invite_path(@conn, :create), fn f -> %>
+          <%= label f, :email %>
+          <%= text_input f, :email %>
+          <%= error_tag f, :email %>
+          <%= hidden_input f, :post, value: @post.id %>
+          <%= submit "Invite" %>
+      <% end %>
+      <span><%= link "Edit", to: Routes.post_path(@conn, :edit, @post) %></span>
+  <% end %>
+<% else %>
+  <h4>Please log in.</h4>
+<% end %>
 
 <span><%= link "Edit", to: Routes.post_path(@conn, :edit, @post) %></span>
 <span><%= link "Back", to: Routes.post_path(@conn, :index) %></span>

@@ -1,3 +1,5 @@
+# Some parts of code below were taken from Professor Nat Tuck's scratch repository 
+
 defmodule EventsWeb.Router do
   use EventsWeb, :router
 
@@ -18,12 +20,13 @@ defmodule EventsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/posts/photo/:id", UserController, :photo
     resources "/posts", PostController
     resources "/users", UserController
+    resources "/invites", InviteController
     resources "/sessions", SessionController,
     only: [:create, :delete], singleton: true
 
-    get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.

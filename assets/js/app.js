@@ -11,9 +11,11 @@ import "../css/app.scss"
 //
 //     import {Socket} from "phoenix"
 //     import socket from "./socket"
-//
+
+// Some parts of code below were taken from Professor Nat Tuck's scratch repository
+
 import "phoenix_html"
 import 'bootstrap';
 import flatpickr from 'flatpickr';
 
-flatpickr('.datetime', {enableTime: true, dateFormat: "Y-m-d H:i"})
+flatpickr('.datetime', { enableTime: true, dateFormat: "Y-m-d H:i" })

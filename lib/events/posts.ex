@@ -1,3 +1,5 @@
+# Some parts of code below were taken from Professor Nat Tuck's scratch repository 
+
 defmodule Events.Posts do
   @moduledoc """
   The Posts context.
@@ -5,6 +7,7 @@ defmodule Events.Posts do
 
   import Ecto.Query, warn: false
   alias Events.Repo
+  #alias Events.Invite
 
   alias Events.Posts.Post
 
@@ -19,6 +22,7 @@ defmodule Events.Posts do
   """
   def list_posts do
     Repo.all(Post)
+    |> Repo.preload(:user)
   end
 
   @doc """
@@ -36,6 +40,11 @@ defmodule Events.Posts do
 
   """
   def get_post!(id), do: Repo.get!(Post, id)
+
+  def get_invites(id) do
+    Repo.all(from(Events.Invites.Invite, where: [post_id: ^id]))
+    |> Repo.preload(:user)
+  end
 
   @doc """
   Creates a post.

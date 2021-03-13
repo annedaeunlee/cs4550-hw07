@@ -1,6 +1,6 @@
 <!-- Some parts of code below were taken from Professor Nat Tuck's scratch repository -->
 
-<%= form_for @changeset, @action, fn f -> %>
+<%= form_for @changeset, @action, [multipart: true], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>
@@ -8,15 +8,21 @@
   <% end %>
 
   <div class="form-group">
-  <%= label f, :name %>
-  <%= text_input f, :name, class: "form-control" %>
-  <%= error_tag f, :name %>
+    <%= label f, :name %>
+    <%= text_input f, :name, class: "form-control" %>
+    <%= error_tag f, :name %>
   </div>
 
   <div class="form-group">
-  <%= label f, :email %>
-  <%= text_input f, :email, class: "form-control" %>
-  <%= error_tag f, :email %>
+    <%= label f, :email %>
+    <%= text_input f, :email, class: "form-control" %>
+    <%= error_tag f, :email %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :photo %>
+    <%= file_input f, :photo, class: "form-control" %>
+    <%= error_tag f, :photo %>
   </div>
 
   <div>

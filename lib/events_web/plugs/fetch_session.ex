@@ -1,3 +1,5 @@
+# Some parts of code below were taken from Professor Nat Tuck's scratch repository 
+
 defmodule EventsWeb.Plugs.FetchSession do
     import Plug.Conn
   

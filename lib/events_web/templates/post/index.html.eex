@@ -1,33 +1,59 @@
 <!-- Some parts of code below were taken from Professor Nat Tuck's scratch repository -->
 
-<h1>Listing Posts</h1>
+<%= if not have_current_user?(@conn) do %>
+  <p>Must log in to see event information.</p>
+<% end %>
+
+<h1>Listing Events</h1>
 
 <table style="width:80%">
   <thead>
     <tr>
-      <th>Date</th>
-      <th>Name</th>
+      <th>Host</th>
+      <th>Host Name</th>
+      <th>Event Name</th>
       <th>Description</th>
-
-      <th></th>
+      <th>Date & time</th>
+      <%= if have_current_user?(@conn) do %>
+        <th>Things to do:</th>
+      <% end %>
     </tr>
   </thead>
+
   <tbody>
 <%= for post <- @posts do %>
-    <tr>
-      <td><%= post.date %></td>
-      <td><%= post.name %></td>
-      <td><%= post.description %></td>
-
-      <td>
-        <span style="margin-right:10px"><%= link "Show", to: Routes.post_path(@conn, :show, post) %></span>
-        <span style="margin-right:10px"><%= link "Edit", to: Routes.post_path(@conn, :edit, post) %></span>
-        <span style="margin-right:10px"><%= link "Delete", to: Routes.post_path(@conn, :delete, post), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
+    <%= if invited?(@conn, post.id, post.user_id) do %>
+      <tr>
+        <td><div><img src="<%= Routes.user_path(@conn, :photo, post.user) %>" alt="" style="height: 50px"></div></td>
+        <td><%= post.user.name %></td>
+        <td><%= post.name %></td>
+        <td><%= post.description %></td>
+        <td><%= post.date %></td>
+        <td>
+          <%= if current_user_id?(@conn, post.user_id) do %>
+            <span><%= link "Edit", to: Routes.post_path(@conn, :edit, post) %></span>
+          <% end %>
+          <%= if have_current_user?(@conn) do %>
+            <span><%= link "Show", to: Routes.post_path(@conn, :show, post) %></span>
+          <% end %>
+        </td>
+      </tr>
+    <% else %>
+      <tr>
+        <td><div><img src="<%= Routes.user_path(@conn, :photo, post.user) %>" alt="" style="height: 50px"></div></td>
+        <td><%= post.user.name %></td>
+        <td><%= post.name %></td>
+        <td><p>Invalid.</p></td>
+        <td><p>Invalid.</p></td>
+      </tr>
+    <% end %>
 <% end %>
   </tbody>
 </table>
 
 <p></p>
+
+<%= if have_current_user?(@conn) do %>
 <span ><%= link "New Post", to: Routes.post_path(@conn, :new) %></span>
+<% end %>
+

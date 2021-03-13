@@ -1,5 +1,5 @@
 
-Web Dev Spring 2021 HW07 Status
+Web Dev Spring 2021 HW08 Status
 
 Answer the following questions:
 
@@ -8,30 +8,21 @@ Answer the following questions:
 Anne Lee
 
 
-
 2. What's the URL of the github repo with your work for this HW?
-https://github.com/annedaeunlee/cs4550-hw07.git
-
+https://github.com/annedaeunlee/cs4550-hw08.git
 
 
 3. What's the URL that you deployed to?
-events.annelee2001.com
-
+annelee2001.com
 
 
 4. Is your app functionality complete? If not, what's missing?
-Nope, it's complete.
-
+It's almost complete. I don't know if I completed the adding photos functionality correctly and completely.
 
 
 5. Is your app properly deployed? If not, what went wrong?
-Yes.
+It should be. I may have missed testing a scenario, but I think I got everything down.
 
-
-
-6. If you would like the deployment for an old homework to be reconsidered, what
-are the links to your Inkfish submission and deployed site?
-HW06, hw06.lauratrannguyen.com
 
 
 

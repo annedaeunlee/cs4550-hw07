@@ -28,4 +28,8 @@ npm install --prefix ./assets
 npm run deploy --prefix ./assets
 mix phx.digest
 
+<<<<<<< HEAD
 mix release
+=======
+mix release
+>>>>>>> 6e6d114c85e2f2ba38ef0a10b1cf945ca2990879

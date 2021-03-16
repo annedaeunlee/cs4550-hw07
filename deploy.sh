@@ -5,7 +5,7 @@ export MIX_ENV=prod
 # Common port range for this is 4000-10,000
 # Valid port range for a user app to listen
 # on is something like 1025-32767
-export PORT=4004
+export PORT=4013
 export SECRET_KEY_BASE=lovely
 export DATABASE_URL=ecto.//"events":"aouf9832o98s"@localhost:5432/events_dev
 

@@ -16,7 +16,7 @@ config :events, Events.Repo,
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :events, EventsWeb.Endpoint,
-  http: [port: 4004],
+  http: [port: 4013],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,

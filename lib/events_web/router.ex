@@ -10,7 +10,7 @@ defmodule EventsWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug EventsWeb.Plugs.FetchSession
-    plug EventsWeb.Plugs.RequireUser
+    #plug EventsWeb.Plugs.RequireUser
   end
 
   pipeline :api do
@@ -22,7 +22,6 @@ defmodule EventsWeb.Router do
 
     get "/", PageController, :index
     get "/posts/photo/:id", UserController, :photo
-    #get "/posts/:id", UserController, :user
     resources "/posts", PostController
     resources "/users", UserController
     resources "/invites", InviteController

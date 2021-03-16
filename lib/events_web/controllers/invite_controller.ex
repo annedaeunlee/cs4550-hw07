@@ -22,7 +22,25 @@ defmodule EventsWeb.InviteController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"invite" => invite_params}) do
+  def create(conn, %{"email" => email, "post" => post_id}) do
+
+    IO.puts email
+    user = if Events.Users.get_user_by_email(email) == nil do
+      photos = Application.app_dir(:events, "priv/photos")
+      path = Path.join(photos, "unknown.jfif.jpeg")
+      {:ok, hash} = Photos.save_photo("unkown.jfif.jpeg", path)
+      user_params = %{name: "not_registered", email: email, photo_hash: hash}
+      {:ok, user} = Events.Users.create_user(user_params)
+      IO.puts "USER CREATED"
+      IO.puts user.id
+      user
+    else
+      IO.puts "USER EXISTS"
+      Events.Users.get_user_by_email(email)
+    end
+    IO.puts user.id
+    invite_params = %{user_id: user.id, post_id: post_id, comment: "comment", response: "no response"}
+
     case Invites.create_invite(invite_params) do
       {:ok, invite} ->
         conn
@@ -62,11 +80,21 @@ defmodule EventsWeb.InviteController do
   def delete(conn, %{"id" => id}) do
     invite = Invites.get_invite!(id)
 
-    Invites.update_invite(invite, %{post_id: invite.post_id, user_id: invite.user_id, response: invite.response, comment: ""})
+    Invites.update_invite(invite, %{post_id: invite.post_id, user_id: invite.user_id, response: invite.response, comment: "   "})
     {:ok, _invite} = Invites.update_invite(invite, %{post_id: invite.post_id, user_id: invite.user_id, response: invite.response, comment: "   "})
 
     conn
     |> put_flash(:info, "Comment deleted successfully.")
     |> redirect(to: Routes.post_path(conn, :show, invite.post_id))
   end
+
+  #def delete_invitee(conn, %{"id" => id}) do
+   # invite = Invites.get_invite!(id)
+    #{:ok, _user} = Events.Users.delete_user(invite.user_id)
+  
+    #conn
+    #|> put_flash(:info, "User deleted successfully.")
+    #|> redirect(to: Routes.user_path(conn, :index))
+  #end
+    
 end

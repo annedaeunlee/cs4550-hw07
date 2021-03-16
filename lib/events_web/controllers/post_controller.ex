@@ -5,11 +5,13 @@ defmodule EventsWeb.PostController do
 
   alias Events.Posts
   alias Events.Posts.Post
-  alias Events.Plugs
+  alias EventsWeb.Plugs
 
   plug Plugs.RequireUser when action in [:new, :edit, :create, :update]
-  
+  plug :fetch_post when action in [:show, :edit, :update, :delete]
   plug :require_owner when action in [:edit, :update, :delete]
+  
+
 
   def require_owner(conn, _args) do
     user = conn.assigns[:current_user]
@@ -25,7 +27,6 @@ defmodule EventsWeb.PostController do
     end
   end
 
-  plug :fetch_post when action in [:show, :edit, :update, :delete]
 
   def fetch_post(conn, _args) do
     id = conn.params["id"]
@@ -49,7 +50,7 @@ defmodule EventsWeb.PostController do
     post_params = post_params
     |> Map.put("user_id", conn.assigns[:current_user].id)
 
-    case Posts.create_post(post_params) do
+    case Events.Posts.create_post(post_params) do
       {:ok, post} ->
         conn
         |> put_flash(:info, "Post created successfully.")
@@ -63,19 +64,19 @@ defmodule EventsWeb.PostController do
   def show(conn, %{"id" => id}) do
     #post = Posts.get_post!(id)
     post = conn.assigns[:post]
-    invites = Events.get_invites(post.id)
+    invites = Events.Posts.get_invites(post.id)
     render(conn, "show.html", post: post, invites: invites)
   end
 
   def show_invites(conn, %{"id" => id}) do
-    invites = Events.get_invites(id)
+    invites = Events.Posts.get_invites(id)
     render(conn, "show_invites.html", invites: invites)
   end
 
   def edit(conn, %{"id" => id}) do
     #post = Posts.get_post!(id)
     post = conn.assigns[:post]
-    changeset = Posts.change_post(post)
+    changeset = Events.Posts.change_post(post)
     render(conn, "edit.html", post: post, changeset: changeset)
   end
 

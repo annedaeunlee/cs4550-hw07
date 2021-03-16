@@ -7,6 +7,7 @@ export MIX_ENV=prod
 # on is something like 1025-32767
 export PORT=4004
 export SECRET_KEY_BASE=lovely
+export DATABASE_URL=ecto.//"events":"aouf9832o98s"@localhost:5432/events_dev
 
 mix deps.get --only prod
 mix compile
@@ -28,8 +29,4 @@ npm install --prefix ./assets
 npm run deploy --prefix ./assets
 mix phx.digest
 
-<<<<<<< HEAD
 mix release
-=======
-mix release
->>>>>>> 6e6d114c85e2f2ba38ef0a10b1cf945ca2990879

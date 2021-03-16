@@ -19,9 +19,11 @@ defmodule EventsWeb.UserController do
 
   def create(conn, %{"user" => user_params}) do
     #If user wants to upload a profile photo
-    photo = user_params["photo"]
-    {:ok, hash} = Photos.save_photo(photo.filename, photo.path)
+    up = user_params["photo"]
+  
+    {:ok, hash} = Photos.save_photo(up.filename, up.path)
     user_params = user_params
+    #|> Map.put("user_id", conn.assigns[:current_user].id)
     |> Map.put("photo_hash", hash)
     
     case Users.create_user(user_params) do
